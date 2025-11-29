@@ -51,6 +51,17 @@ func deleteTask(tasks []string) []string {
 	return tasks
 }
 
+func CompleteTask(tasks []string, id int) []string {
+	if id < 1 || id > len(tasks) {
+		fmt.Println("Invalid task ID")
+		return tasks
+	}
+
+	tasks[id-1] = "✔ " + tasks[id-1]
+	return tasks
+}
+
+
 func clear(tasks []string) []string {
 	return []string{}
 }
@@ -98,6 +109,16 @@ func main() {
 		case "exit":
 			fmt.Println("Goodbye!")
 			return
+		
+		case "done":
+				fmt.Print("Enter task number to mark as done: ")
+				idStr := readLine()
+
+				var id int
+				fmt.Sscanf(idStr, "%d", &id)
+
+				tasks = CompleteTask(tasks, id)
+
 
 		default:
 			fmt.Println("Invalid command. Type 'help' to see options.")
